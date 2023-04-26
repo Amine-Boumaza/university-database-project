@@ -106,4 +106,3 @@ CREATE TABLE database_publication (
   FOREIGN KEY (publication_id) REFERENCES publication(publication_id)
 );
 
-DROP DATABASE university;
