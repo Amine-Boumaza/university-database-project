@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "uni";
+$dbname = "univ";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare the SQL statement and bind the values
         $stmt = $conn->prepare($sql);
         $types = str_repeat("s", count($values) - 1);
-        $stmt->bind_param($types, ...array_slice($values, 1));
+        $stmt->bind_param($types, array_slice($values, 1));
         $stmt->execute();
     }
 }
