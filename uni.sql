@@ -341,7 +341,7 @@ INSERT INTO article_researcher (article_id, researcher_id) VALUES
 
 
 --Select all researchers belonging to a specific laboratory.
-SELECT r.name 
+SELECT r.name,r.id 
 FROM researcher r,researcher_team rt,team t,laboratory l
 WHERE  r.id=rt.researcher_id
 AND rt.team_id = t.id
