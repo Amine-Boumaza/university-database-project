@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="/show.css">
     <title>Query Results</title>
 </head>
 
@@ -28,18 +29,7 @@
         // Get the selected query
         $query = $_POST['query'];
 
-        // Connect to the database
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "univ";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include 'connect.php';
 
         // Execute the selected query and display the results in a table
         switch ($query) {
@@ -52,23 +42,21 @@
 						AND t.lab_id=l.id
 						AND l.name = '$lab_name'";
                 $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-    ?>
+                if ($result->num_rows > 0) { ?>
                     <table>
                         <tr>
                             <th>Name</th>
-                            <th>Action</th>
+
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
                                 <td><?php echo $row["name"]; ?></td>
-                                <td>
+                                <!-- <td>
                                     <form method="post">
                                         <input type="hidden" name="researcher_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td>
+                                </td> -->
                             </tr>
                         <?php } ?>
                     </table>
@@ -77,7 +65,6 @@
                     echo "0 results";
                 }
                 break;
-
             case '2':
                 $researcher_name = $_POST['name'];
                 $sql = "SELECT a.id, a.title , a.publication_date
@@ -86,25 +73,23 @@
 						AND ar.researcher_id = r.id
 						AND r.name = '$researcher_name'";
                 $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                ?>
+                if ($result->num_rows > 0) { ?>
                     <table>
                         <tr>
                             <th>Title</th>
                             <th>Publication Date</th>
-                            <th>Action</th>
+
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
                                 <td><?php echo $row["title"]; ?></td>
                                 <td><?php echo $row["publication_date"]; ?></td>
-                                <td>
+                                <!-- <td>
                                     <form method="post">
                                         <input type="hidden" name="article_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td>
+                                </td> -->
                             </tr>
                         <?php } ?>
                     </table>
@@ -113,7 +98,6 @@
                     echo "0 results";
                 }
                 break;
-
             case '3':
                 $dept_name = $_POST['name'];
                 $sql = "SELECT r.id, r.name 
@@ -122,23 +106,22 @@
 						AND d.name = '$dept_name'
 						ORDER BY r.name";
                 $result = $conn->query($sql);
-
                 if ($result->num_rows > 0) {
                 ?>
                     <table>
                         <tr>
                             <th>Name</th>
-                            <th>Action</th>
+
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
                                 <td><?php echo $row["name"]; ?></td>
-                                <td>
+                                <!-- <td>
                                     <form method="post">
                                         <input type="hidden" name="researcher_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td>
+                                </td> -->
                             </tr>
                         <?php } ?>
                     </table>
@@ -147,7 +130,6 @@
                     echo "0 results";
                 }
                 break;
-
             case '4':
                 $journal_name = $_POST['name'];
                 $sql = "SELECT title , publication_date
@@ -155,59 +137,51 @@
 						WHERE journal_id = (SELECT id FROM journal WHERE name = '$journal_name')
 						ORDER BY publication_date";
                 $result = $conn->query($sql);
-
                 if ($result->num_rows > 0) {
                 ?>
                     <table>
                         <tr>
                             <th>Title</th>
                             <th>Publication Date</th>
-                            <th>Action</th>
+
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
                                 <td><?php echo $row["title"]; ?></td>
                                 <td><?php echo $row["publication_date"]; ?></td>
-                                <td>
+                                <!-- <td>
                                     <form method="post">
                                         <input type="hidden" name="article_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td>
+                                </td> -->
                             </tr>
                         <?php } ?>
-                    </table>
-    <?php
-                } else {
-                    echo "0 results";
+                    </table><?php
+                        } else {
+                            echo "0 results";
+                        }
+                        break;
+                    default:
+                        break;
                 }
-                break;
-
-            default:
-                break;
-        }
-
-        // Delete the selected row from the database if the "Delete" button is clicked
-        if (isset($_POST['delete'])) {
-            if (isset($_POST['researcher_id'])) {
-                $id = $_POST['researcher_id'];
-                $table = 'researcher';
-            } elseif (isset($_POST['article_id'])) {
-                $id = $_POST['article_id'];
-                $table = 'article';
-            }
-            $sql = "DELETE FROM $table WHERE id = $id";
-            if (mysqli_query($conn, $sql)) {
-                echo "Record deleted successfully";
-            } else {
-                echo "Error deleting record: " . $conn->error;
-            }
-        }
-
-        // Close the database connection
-        $conn->close();
-    }
-    ?>
+                // if (isset($_POST['delete'])) {
+                //     if (isset($_POST['researcher_id'])) {
+                //         $id = $_POST['researcher_id'];
+                //         $table = 'researcher';
+                //     } elseif (isset($_POST['article_id'])) {
+                //         $id = $_POST['article_id'];
+                //         $table = 'article';
+                //     }
+                //     $sql = "DELETE FROM $table WHERE id = $id";
+                //     if (mysqli_query($conn, $sql)) {
+                //         echo "Record deleted successfully";
+                //     } else {
+                //         echo "Error deleting record: " . mysqli_connect_error();
+                //     }
+                // }
+                mysqli_close($conn);
+            } ?>
 </body>
 
 </html>
