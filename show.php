@@ -197,7 +197,7 @@
                 $table = 'article';
             }
             $sql = "DELETE FROM $table WHERE id = $id";
-            if ($conn->query($sql) == TRUE) {
+            if (mysqli_query($conn, $sql)) {
                 echo "Record deleted successfully";
             } else {
                 echo "Error deleting record: " . $conn->error;
