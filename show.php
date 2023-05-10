@@ -7,7 +7,9 @@
 </head>
 
 <body>
-    <h1>Query Results</h1>
+    <a href="/index.php" class="show">go back</a>
+    <h1>Show Results</h1>
+
     <form method="post">
         <label for="query">Select a query:</label>
         <select name="query" id="query">
@@ -24,14 +26,13 @@
         <input type="submit" value="Submit">
     </form>
     <?php
-    // Check if the form has been submitted
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Get the selected query
+
         $query = $_POST['query'];
 
         include 'connect.php';
 
-        // Execute the selected query and display the results in a table
         switch ($query) {
             case '1':
                 $lab_name = $_POST['name'];
@@ -51,12 +52,12 @@
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
                                 <td><?php echo $row["name"]; ?></td>
-                                <!-- <td>
+                                <td>
                                     <form method="post">
                                         <input type="hidden" name="researcher_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td> -->
+                                </td>
                             </tr>
                         <?php } ?>
                     </table>
@@ -84,12 +85,12 @@
                             <tr>
                                 <td><?php echo $row["title"]; ?></td>
                                 <td><?php echo $row["publication_date"]; ?></td>
-                                <!-- <td>
+                                <td>
                                     <form method="post">
                                         <input type="hidden" name="article_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td> -->
+                                </td>
                             </tr>
                         <?php } ?>
                     </table>
@@ -116,12 +117,12 @@
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
                                 <td><?php echo $row["name"]; ?></td>
-                                <!-- <td>
+                                <td>
                                     <form method="post">
                                         <input type="hidden" name="researcher_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td> -->
+                                </td>
                             </tr>
                         <?php } ?>
                     </table>
@@ -149,12 +150,12 @@
                             <tr>
                                 <td><?php echo $row["title"]; ?></td>
                                 <td><?php echo $row["publication_date"]; ?></td>
-                                <!-- <td>
+                                <td>
                                     <form method="post">
                                         <input type="hidden" name="article_id" value="<?php echo $row["id"]; ?>">
                                         <input type="submit" name="delete" value="Delete">
                                     </form>
-                                </td> -->
+                                </td>
                             </tr>
                         <?php } ?>
                     </table><?php
@@ -165,21 +166,21 @@
                     default:
                         break;
                 }
-                // if (isset($_POST['delete'])) {
-                //     if (isset($_POST['researcher_id'])) {
-                //         $id = $_POST['researcher_id'];
-                //         $table = 'researcher';
-                //     } elseif (isset($_POST['article_id'])) {
-                //         $id = $_POST['article_id'];
-                //         $table = 'article';
-                //     }
-                //     $sql = "DELETE FROM $table WHERE id = $id";
-                //     if (mysqli_query($conn, $sql)) {
-                //         echo "Record deleted successfully";
-                //     } else {
-                //         echo "Error deleting record: " . mysqli_connect_error();
-                //     }
-                // }
+                if (isset($_POST['delete'])) {
+                    if (isset($_POST['researcher_id'])) {
+                        $id = $_POST['researcher_id'];
+                        $table = 'researcher';
+                    } elseif (isset($_POST['article_id'])) {
+                        $id = $_POST['article_id'];
+                        $table = 'article';
+                    }
+                    $sql = "DELETE FROM $table WHERE id = $id";
+                    if (mysqli_query($conn, $sql)) {
+                        echo "Record deleted successfully";
+                    } else {
+                        echo "Error deleting record: " . mysqli_connect_error();
+                    }
+                }
                 mysqli_close($conn);
             } ?>
 </body>

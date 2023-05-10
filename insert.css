@@ -41,6 +41,24 @@ input[type="submit"]:hover {
     background-color: #3e8e41;
 }
 
+.show {
+    
+    margin-top: 1%;
+    display: inline-block;
+    text-decoration: none;
+    color: #000000;
+    border: 0.125em solid #000000;
+    border-radius: 1.875em;
+    padding: 0.9375em 2.1875em;
+    font-size: 1em;
+    font-weight: 700;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+
 select {
     padding: 0.5rem;
     border-radius: 0.25rem;
