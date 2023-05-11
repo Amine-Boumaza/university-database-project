@@ -23,19 +23,19 @@ include 'post.inc.php';
 
 <body>
     <a href="/index.php" class="show">go back</a>
-    <h1>University Research Database</h1>
+    <h1>RESEARCH BDD</h1>
 
 
-    <!-- Form for selecting a table -->
+    
     <form id="insert-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <input type="hidden" name="action" value="select_table">
         <label for="table_name">Select a table:</label>
         <select name="table_name" id="table_name" onchange="updateForm()">
             <option value="">--Select a table--</option>
             <?php
-            // List of table names
+
             $tables = ["faculty", "laboratory", "team", "department", "researcher", "researcher_team", "focus", "researcher_focus", "article", "keyword", "article_keyword", "Databas", "book", "journal", "conference", "article_researcher", "journal_database", "conference_database", "book_article"];
-            // Generate the options for the dropdown list
+            
             foreach ($tables as $table) {
                 $selected = $table_name == $table ? "selected" : "";
                 echo "<option value=\"$table\" $selected>$table</option>";

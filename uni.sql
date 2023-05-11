@@ -9,7 +9,7 @@ CREATE TABLE laboratory (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   faculty_id INT,
-  FOREIGN KEY (faculty_id) REFERENCES faculty(id)
+  FOREIGN KEY (faculty_id) REFERENCES faculty(id) on DELETE CASCADE
 );
 
 
@@ -17,7 +17,7 @@ CREATE TABLE team (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   lab_id INT,
-  FOREIGN KEY (lab_id) REFERENCES laboratory(id)
+  FOREIGN KEY (lab_id) REFERENCES laboratory(id) on DELETE CASCADE
 );
 
 
@@ -25,7 +25,7 @@ CREATE TABLE researcher (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   department_id INT,
-  FOREIGN KEY (department_id) REFERENCES department(id)
+  FOREIGN KEY (department_id) REFERENCES department(id) on DELETE CASCADE
 );
 
 
@@ -33,8 +33,8 @@ CREATE TABLE researcher_team (
   team_id INT,
   researcher_id INT,
   PRIMARY KEY (team_id, researcher_id),
-  FOREIGN KEY (team_id) REFERENCES team(id),
-  FOREIGN KEY (researcher_id) REFERENCES researcher(id)
+  FOREIGN KEY (team_id) REFERENCES team(id) on DELETE CASCADE,
+  FOREIGN KEY (researcher_id) REFERENCES researcher(id) on DELETE CASCADE
 );
 
 CREATE TABLE focus (
@@ -47,8 +47,8 @@ CREATE TABLE researcher_focus (
   focus_id INT,
   researcher_id INT,
   PRIMARY KEY (focus_id, researcher_id),
-  FOREIGN KEY (focus_id) REFERENCES focus(id),
-  FOREIGN KEY (researcher_id) REFERENCES researcher(id)
+  FOREIGN KEY (focus_id) REFERENCES focus(id) on DELETE CASCADE,
+  FOREIGN KEY (researcher_id) REFERENCES researcher(id) on DELETE CASCADE
 );
 
 
@@ -59,8 +59,8 @@ CREATE TABLE article (
   journal_id INT,
   database_id INT,
   UNIQUE (journal_id, title),
-  FOREIGN KEY (journal_id) REFERENCES journal(id),
-  FOREIGN KEY (database_id) REFERENCES databas(id)
+  FOREIGN KEY (journal_id) REFERENCES journal(id) on DELETE CASCADE,
+  FOREIGN KEY (database_id) REFERENCES databas(id) on DELETE CASCADE
 );
 
 
@@ -74,8 +74,8 @@ CREATE TABLE article_keyword (
   article_id INT,
   keyword_id INT,
   PRIMARY KEY (article_id, keyword_id),
-  FOREIGN KEY (article_id) REFERENCES article(id),
-  FOREIGN KEY (keyword_id) REFERENCES keyword(id)
+  FOREIGN KEY (article_id) REFERENCES article(id) on DELETE CASCADE,
+  FOREIGN KEY (keyword_id) REFERENCES keyword(id) on DELETE CASCADE
 );
 
 CREATE TABLE Databas (
@@ -106,8 +106,8 @@ CREATE TABLE article_researcher (
   article_id INT,
   researcher_id INT,
   PRIMARY KEY (article_id, researcher_id),
-  FOREIGN KEY (article_id) REFERENCES article(id),
-  FOREIGN KEY (researcher_id) REFERENCES researcher(id)
+  FOREIGN KEY (article_id) REFERENCES article(id) on DELETE CASCADE,
+  FOREIGN KEY (researcher_id) REFERENCES researcher(id) on DELETE CASCADE
 );
 
 
@@ -115,8 +115,8 @@ CREATE TABLE journal_database (
   journal_id INT,
   databas_id int NOT NULL,
   PRIMARY KEY (journal_id, databas_id),
-  FOREIGN KEY (journal_id) REFERENCES journal(id),
-  Foreign Key (databas_id) REFERENCES databas(id)
+  FOREIGN KEY (journal_id) REFERENCES journal(id) on DELETE CASCADE,
+  Foreign Key (databas_id) REFERENCES databas(id) on DELETE CASCADE
 );
 
 
@@ -124,8 +124,8 @@ CREATE TABLE conference_database (
   conference_id INT,
   databas_id int NOT NULL,
   PRIMARY KEY (conference_id, databas_id),
-  FOREIGN KEY (conference_id) REFERENCES conference(id),
-  Foreign Key (databas_id) REFERENCES databas(id)
+  FOREIGN KEY (conference_id) REFERENCES conference(id) on DELETE CASCADE,
+  Foreign Key (databas_id) REFERENCES databas(id) on DELETE CASCADE
 );
 
 
@@ -139,8 +139,8 @@ CREATE TABLE book_article (
   book_id INT,
   article_id INT,
   PRIMARY KEY (book_id, article_id),
-  FOREIGN KEY (book_id) REFERENCES book(id),
-  FOREIGN KEY (article_id) REFERENCES article(id)
+  FOREIGN KEY (book_id) REFERENCES book(id) on DELETE CASCADE,
+  FOREIGN KEY (article_id) REFERENCES article(id) on DELETE CASCADE
 );
 
 
@@ -253,23 +253,23 @@ INSERT INTO keyword (name) VALUES
 ('Inorganic Chemistry');
 -- Insert random data into article_keyword table
 INSERT INTO article_keyword (article_id, keyword_id) VALUES
-(41, 1),
-(41, 2),
-(42, 1),
-(42, 2),
-(43, 3),
-(43, 4),
-(44, 3),
-(44, 4),
-(45, 5),
-(45, 6),
-(46, 5),
-(46, 6),
-(47, 7),
-(48, 3),
-(49, 4),
-(50, 3),
-(50, 4);
+(11, 1),
+(11, 2),
+(12, 1),
+(12, 2),
+(13, 3),
+(13, 4),
+(14, 3),
+(14, 4),
+(15, 5),
+(15, 6),
+(16, 5),
+(16, 6),
+(17, 7),
+(18, 3),
+(19, 4),
+(20, 3),
+(20, 4);
 -- Insert random data into journal_database table
 INSERT INTO journal_database (journal_id, databas_id) VALUES
 (1, 3),
@@ -293,9 +293,9 @@ INSERT INTO book (name) VALUES
 ('Book 3');
 -- Insert random data into book_article table
 INSERT INTO book_article (book_id, article_id) VALUES
-(1, 41),
-(2, 42),
-(3, 43);
+(1, 11),
+(2, 12),
+(3, 13);
 
 INSERT INTO journal (name) VALUES
 ('Journal of Computer Science'),
@@ -316,32 +316,32 @@ INSERT INTO conference (name) VALUES
 ('Chemical Engineering Conference');
 
 INSERT INTO article_researcher (article_id, researcher_id) VALUES
-(41, 1),
-(41, 2),
-(42, 1),
-(42, 2),
-(43, 3),
-(43, 4),
-(44, 3),
-(44, 4),
-(45, 5),
-(45, 6),
-(46, 5),
-(46, 6),
-(47, 7),
-(47, 4),
-(48, 7),
-(48, 3),
-(49, 4),
-(50, 3),
-(50, 4);
+(11, 1),
+(11, 2),
+(12, 1),
+(12, 2),
+(13, 3),
+(13, 4),
+(14, 3),
+(14, 4),
+(15, 5),
+(15, 6),
+(16, 5),
+(16, 6),
+(17, 7),
+(17, 4),
+(18, 7),
+(18, 3),
+(19, 4),
+(20, 3),
+(20, 4);
 
 
 
 
 
 --Select all researchers belonging to a specific laboratory.
-SELECT r.name,r.id 
+SELECT r.name 
 FROM researcher r,researcher_team rt,team t,laboratory l
 WHERE  r.id=rt.researcher_id
 AND rt.team_id = t.id
@@ -413,9 +413,12 @@ CREATE Table article_confrence(
 );
 
 INSERT INTO article_confrence (article_id,conference_id) VALUES
-(41,2),
-(42,4),
-(44,3),
-(48,2),
-(46,4)
+(11,2),
+(12,4),
+(14,3),
+(18,2),
+(16,4)
 ;
+
+
+DROP DATABASE univ;

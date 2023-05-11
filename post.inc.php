@@ -3,22 +3,22 @@ $table_columns = [];
 
 if (isset($_POST["table_name"])) {
     $table_name = $_POST["table_name"];
-    // Fetch the columns of the selected table
+
     $sql = "SHOW COLUMNS FROM $table_name";
     $result = $conn->query($sql);
 
-    // Store the column names in an array
+
     while ($row = $result->fetch_assoc()) {
         $table_columns[] = $row["Field"];
     }
 }
 
-// Handle form submissions
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $table_name = $_POST["table_name"];
     $action = $_POST["action"];
 
-    // Check if the action is "insert"
+    
     if ($action == "insert") {
         $values = $_POST["values"];
 

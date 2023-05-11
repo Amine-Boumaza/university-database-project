@@ -19,7 +19,7 @@
             <img src="logov.png" alt="logo">
             <div class="text-box">
                 <h1>Welcome to Guelma Univesity</h1>
-                <h3>Please choose what faculty you belong to</h3>
+                <h3>Please choose</h3>
             </div>
         </nav>
 

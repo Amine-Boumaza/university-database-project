@@ -47,6 +47,7 @@
                     <table>
                         <tr>
                             <th>Name</th>
+                            <th>Action</th>
 
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
@@ -79,6 +80,7 @@
                         <tr>
                             <th>Title</th>
                             <th>Publication Date</th>
+                            <th>Action</th>
 
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
@@ -112,6 +114,7 @@
                     <table>
                         <tr>
                             <th>Name</th>
+                            <th>Action</th>
 
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
@@ -144,6 +147,7 @@
                         <tr>
                             <th>Title</th>
                             <th>Publication Date</th>
+                            <th>Action</th>
 
                         </tr>
                         <?php while ($row = $result->fetch_assoc()) { ?>
